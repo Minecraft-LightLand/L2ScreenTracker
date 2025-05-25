@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.145'
+    id 'net.neoforged.gradle.userdev' version '7.0.165'
 }
 
 version = mod_version
@@ -149,4 +149,8 @@ dependencies {
     implementation "dev.xkmc:l2core:${l2core_ver}"
 
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+
+
+    implementation "curse.maven:sophisticated-backpacks-422301:6456081"
+    implementation "curse.maven:sophisticated-core-618298:6470497"
 }
