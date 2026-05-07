@@ -19,7 +19,7 @@ public class MouseCache {
 	public static void onReleaseMouse() {
 		if (grab) {
 			grab = false;
-			InputConstants.grabOrReleaseMouse(Minecraft.getInstance().getWindow().getWindow(), 212993, mx, my);
+			InputConstants.grabOrReleaseMouse(Minecraft.getInstance().getWindow(), 212993, mx, my);
 			var mouse = Minecraft.getInstance().mouseHandler;
 			mouse.xpos = mx;
 			mouse.ypos = my;

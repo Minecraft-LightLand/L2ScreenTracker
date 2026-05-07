@@ -1,11 +1,11 @@
 package dev.xkmc.l2menustacker.click;
 
 import dev.xkmc.l2serial.network.SerialPacketBase;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-public record SlotClickToServer(ResourceLocation type, int index, int slot, int wid)
+public record SlotClickToServer(Identifier type, int index, int slot, int wid)
 		implements SerialPacketBase<SlotClickToServer> {
 
 	@Override

@@ -13,9 +13,9 @@ public class L2MSTagGen {
 	public static final TagKey<Item> QUICK_ACCESS_VANILLA = ItemTags.create(L2MenuStacker.loc("quick_access_vanilla"));
 
 	public static void genItemTags(RegistrateItemTagsProvider pvd) {
-		pvd.addTag(QUICK_ACCESS_VANILLA).add(Items.CRAFTING_TABLE, Items.SMITHING_TABLE, Items.STONECUTTER,
+		pvd.tag(QUICK_ACCESS_VANILLA).add(Items.CRAFTING_TABLE, Items.SMITHING_TABLE, Items.STONECUTTER,
 				Items.GRINDSTONE, Items.CARTOGRAPHY_TABLE, Items.LOOM);
-		pvd.addTag(QUICK_ACCESS).addTag(QUICK_ACCESS_VANILLA);
+		pvd.tag(QUICK_ACCESS).addTag(QUICK_ACCESS_VANILLA);
 	}
 
 }

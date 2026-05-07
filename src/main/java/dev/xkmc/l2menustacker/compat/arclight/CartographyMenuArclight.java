@@ -15,5 +15,5 @@ public class CartographyMenuArclight extends CartographyTableMenu {
 	public boolean stillValid(Player p_39780_) {
 		return true;
 	}
-	
+
 }

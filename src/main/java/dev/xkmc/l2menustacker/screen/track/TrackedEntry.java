@@ -17,8 +17,9 @@ public final class TrackedEntry<T extends Record & TrackedEntryData<T>> {
 
 	private T data;
 
+	@Nullable
 	@SerialField
-	private String title;
+	private Component title;
 
 	@Deprecated
 	public TrackedEntry() {
@@ -35,8 +36,7 @@ public final class TrackedEntry<T extends Record & TrackedEntryData<T>> {
 	}
 
 	public LayerPopType restoreServerMenu(ServerPlayer player) {
-		Component comp = title == null ? null : Component.Serializer.fromJson(title, player.level().registryAccess());
-		return type.restoreMenuNotifyClient(player, data, comp);
+		return type.restoreMenuNotifyClient(player, data, title);
 	}
 
 	public boolean shouldReturn(TrackedEntry<?> next) {
@@ -54,12 +54,8 @@ public final class TrackedEntry<T extends Record & TrackedEntryData<T>> {
 		return data;
 	}
 
-	public String title() {
-		return title;
-	}
-
-	public void setTitle(@Nullable Component title, HolderLookup.Provider access) {
-		this.title = title == null ? "" : Component.Serializer.toJson(title, access);
+	public void setTitle(@Nullable Component title) {
+		this.title = title;
 	}
 
 }

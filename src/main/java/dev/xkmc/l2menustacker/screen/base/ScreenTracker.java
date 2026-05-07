@@ -55,14 +55,14 @@ public class ScreenTracker extends PlayerCapabilityTemplate<ScreenTracker> {
 	int wid;
 
 	// --- server only values
-	private TrackedEntry<?> temp;
+	private @Nullable TrackedEntry<?> temp;
 	private boolean restoring = false;
-	private MenuCache current;
+	private @Nullable MenuCache current;
 
 	private void serverOpenMenu(ServerPlayer player, MenuCache next) {
 		if (temp != null) {
 			if (current != null)
-				temp.setTitle(current.title(), player.level().registryAccess());
+				temp.setTitle(current.title());
 			serverOpenMenu(player, temp, next.menu());
 		}
 		this.current = next;

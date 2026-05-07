@@ -15,5 +15,5 @@ public class GrindstoneMenuArclight extends GrindstoneMenu {
 	public boolean stillValid(Player p_39780_) {
 		return true;
 	}
-	
+
 }

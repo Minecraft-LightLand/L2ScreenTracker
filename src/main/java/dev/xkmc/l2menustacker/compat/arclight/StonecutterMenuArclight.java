@@ -15,5 +15,5 @@ public class StonecutterMenuArclight extends StonecutterMenu {
 	public boolean stillValid(Player p_39780_) {
 		return true;
 	}
-	
+
 }

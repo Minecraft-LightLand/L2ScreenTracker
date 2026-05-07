@@ -1,6 +1,7 @@
 package dev.xkmc.l2menustacker.screen.base;
 
 import dev.xkmc.l2core.util.Proxy;
+import dev.xkmc.l2core.util.TooltipHelper;
 import dev.xkmc.l2menustacker.init.L2MenuStacker;
 import dev.xkmc.l2menustacker.screen.packets.RestoreMenuToServer;
 import dev.xkmc.l2menustacker.screen.packets.ScreenType;
@@ -51,7 +52,7 @@ public class ScreenTrackerClient {
 	}
 
 	private static ClientCloseResult onClientCloseImpl(ScreenTracker tracker, int wid) {
-		if (Screen.hasShiftDown() || tracker.isWaiting) {
+		if (TooltipHelper.hasShiftDown() || tracker.isWaiting) {
 			// second exit: close screen
 			tracker.isWaiting = false;
 			return ClientCloseResult.POP_ALL;

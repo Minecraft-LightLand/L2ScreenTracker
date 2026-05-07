@@ -15,5 +15,5 @@ public class AnvilMenuArclight extends AnvilMenu {
 	public boolean stillValid(Player p_39780_) {
 		return true;
 	}
-	
+
 }

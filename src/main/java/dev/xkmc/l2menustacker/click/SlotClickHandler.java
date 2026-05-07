@@ -1,7 +1,7 @@
 package dev.xkmc.l2menustacker.click;
 
 import dev.xkmc.l2menustacker.init.L2MenuStacker;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
@@ -9,11 +9,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class SlotClickHandler {
 
-	public static final ConcurrentHashMap<ResourceLocation, SlotClickHandler> MAP = new ConcurrentHashMap<>();
+	public static final ConcurrentHashMap<Identifier, SlotClickHandler> MAP = new ConcurrentHashMap<>();
 
-	private final ResourceLocation id;
+	private final Identifier id;
 
-	public SlotClickHandler(ResourceLocation rl) {
+	public SlotClickHandler(Identifier rl) {
 		MAP.put(rl, this);
 		this.id = rl;
 	}

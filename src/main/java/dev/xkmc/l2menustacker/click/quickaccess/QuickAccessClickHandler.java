@@ -2,7 +2,7 @@ package dev.xkmc.l2menustacker.click.quickaccess;
 
 import dev.xkmc.l2menustacker.click.ReadOnlyStackClickHandler;
 import dev.xkmc.l2menustacker.init.L2MSTagGen;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +20,7 @@ public class QuickAccessClickHandler extends ReadOnlyStackClickHandler {
 		MAP.put(item, action);
 	}
 
-	public QuickAccessClickHandler(ResourceLocation rl) {
+	public QuickAccessClickHandler(Identifier rl) {
 		super(rl);
 	}
 

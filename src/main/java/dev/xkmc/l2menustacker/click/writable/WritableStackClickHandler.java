@@ -2,7 +2,7 @@ package dev.xkmc.l2menustacker.click.writable;
 
 import dev.xkmc.l2menustacker.click.SlotClickHandler;
 import dev.xkmc.l2menustacker.screen.source.PlayerSlot;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 
 public abstract class WritableStackClickHandler extends SlotClickHandler {
 
-	public WritableStackClickHandler(ResourceLocation rl) {
+	public WritableStackClickHandler(Identifier rl) {
 		super(rl);
 	}
 

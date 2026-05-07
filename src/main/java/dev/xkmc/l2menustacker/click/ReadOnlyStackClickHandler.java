@@ -1,13 +1,13 @@
 package dev.xkmc.l2menustacker.click;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
 public abstract class ReadOnlyStackClickHandler extends SlotClickHandler {
 
-	public ReadOnlyStackClickHandler(ResourceLocation rl) {
+	public ReadOnlyStackClickHandler(Identifier rl) {
 		super(rl);
 	}
 

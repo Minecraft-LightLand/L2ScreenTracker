@@ -10,34 +10,34 @@ import net.minecraft.server.level.ServerPlayer;
 @SerialClass
 public class ExitMenuTrigger extends BaseCriterion<ExitMenuTrigger.Ins, ExitMenuTrigger> {
 
-    public static Ins exitOne() {
-        return new Ins();
-    }
+	public static Ins exitOne() {
+		return new Ins();
+	}
 
-    public static Ins exitAll() {
-        Ins ans = exitOne();
-        ans.all = true;
-        return ans;
-    }
+	public static Ins exitAll() {
+		Ins ans = exitOne();
+		ans.all = true;
+		return ans;
+	}
 
-    public ExitMenuTrigger() {
-        super(Ins.class);
-    }
+	public ExitMenuTrigger() {
+		super(Ins.class);
+	}
 
-    public void trigger(ServerPlayer player, boolean all) {
-        this.trigger(player, e -> e.all == all);
-    }
+	public void trigger(ServerPlayer player, boolean all) {
+		this.trigger(player, e -> e.all == all);
+	}
 
-    @SerialClass
-    public static class Ins extends BaseCriterionInstance<Ins, ExitMenuTrigger> {
+	@SerialClass
+	public static class Ins extends BaseCriterionInstance<Ins, ExitMenuTrigger> {
 
-        @SerialField
-        private boolean all = false;
+		@SerialField
+		private boolean all = false;
 
-        public Ins() {
-            super(L2MSReg.EXIT_MENU.get());
-        }
+		public Ins() {
+			super(L2MSReg.EXIT_MENU.get());
+		}
 
-    }
+	}
 
 }

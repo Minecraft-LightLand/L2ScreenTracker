@@ -4,7 +4,6 @@ import dev.xkmc.l2menustacker.init.L2MenuStacker;
 import dev.xkmc.l2menustacker.screen.base.ClientCloseResult;
 import dev.xkmc.l2menustacker.screen.base.L2MSReg;
 import dev.xkmc.l2menustacker.screen.base.ScreenTracker;
-import dev.xkmc.l2menustacker.screen.triggers.ExitMenuTrigger;
 import dev.xkmc.l2serial.network.SerialPacketBase;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;

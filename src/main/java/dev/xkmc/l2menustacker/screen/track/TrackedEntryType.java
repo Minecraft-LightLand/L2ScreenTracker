@@ -1,8 +1,8 @@
 package dev.xkmc.l2menustacker.screen.track;
 
 import dev.xkmc.l2core.init.reg.registrate.NamedEntry;
-import dev.xkmc.l2menustacker.screen.base.LayerPopType;
 import dev.xkmc.l2menustacker.screen.base.L2MSReg;
+import dev.xkmc.l2menustacker.screen.base.LayerPopType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 

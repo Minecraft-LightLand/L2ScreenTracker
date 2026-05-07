@@ -16,22 +16,23 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import org.lwjgl.glfw.GLFW;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = L2MenuStacker.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(value = Dist.CLIENT, modid = L2MenuStacker.MODID)
 public class SlotClickEventHandler {
 
 	@SubscribeEvent
 	public static void onScreenRightClick(ScreenEvent.MouseButtonPressed.Pre event) {
 		Screen screen = event.getScreen();
-		if (screen instanceof AbstractContainerScreen cont) {
-			Slot slot = cont.getSlotUnderMouse();
+		if (screen instanceof AbstractContainerScreen<?> cont) {
+			Slot slot = cont.getHoveredSlot();
 			if (slot == null) return;
 			if (slot.getItem().isStackable()) {
 				ItemStack stack = slot.getItem();
 				if (stack.getCount() > 1) return;
 				if (!stack.is(L2MSTagGen.QUICK_ACCESS)) return;
 			}
-			if (event.getButton() == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
-				boolean b1 = slot.container == Proxy.getClientPlayer().getInventory();
+			var player = Proxy.getClientPlayer();
+			if (event.getButton() == GLFW.GLFW_MOUSE_BUTTON_RIGHT && player != null) {
+				boolean b1 = slot.container == player.getInventory();
 				boolean b2 = cont.getMenu().containerId > 0;
 				if (b1 || b2) {
 					int inv = b1 ? slot.getSlotIndex() : -1;
