@@ -186,12 +186,6 @@ repositories {
     }
 }
 
-repositories {
-}
-
-dependencies {
-}
-
 dependencies {
     implementation "dev.xkmc:l2serial:${l2serial_ver}"
     implementation "dev.xkmc:l2core:${l2core_ver}"

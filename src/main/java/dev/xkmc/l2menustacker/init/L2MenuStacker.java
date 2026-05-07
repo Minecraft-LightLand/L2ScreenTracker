@@ -39,7 +39,7 @@ public class L2MenuStacker {
 			e -> e.create(CacheMouseToClient.class, PLAY_TO_CLIENT)
 	);
 
-	public L2MenuStacker(IEventBus bus) {
+	public L2MenuStacker() {
 		L2MSConfig.init();
 		L2MSReg.register();
 		QuickAccessClickHandler.INS = new QuickAccessClickHandler(loc("quick_access"));
