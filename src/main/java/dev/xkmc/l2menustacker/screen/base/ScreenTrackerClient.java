@@ -1,18 +1,17 @@
 package dev.xkmc.l2menustacker.screen.base;
 
-import dev.xkmc.l2core.util.Proxy;
 import dev.xkmc.l2core.util.TooltipHelper;
 import dev.xkmc.l2menustacker.init.L2MenuStacker;
 import dev.xkmc.l2menustacker.screen.packets.RestoreMenuToServer;
 import dev.xkmc.l2menustacker.screen.packets.ScreenType;
 import dev.xkmc.l2menustacker.screen.track.TrackedEntry;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 
 public class ScreenTrackerClient {
 
 	private static ScreenTracker getClient() {
-		LocalPlayer player = Proxy.getClientPlayer();
+		LocalPlayer player = Minecraft.getInstance().player;
 		assert player != null;
 		return ScreenTracker.get(player);
 	}

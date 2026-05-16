@@ -1,10 +1,10 @@
 package dev.xkmc.l2menustacker.click;
 
-import dev.xkmc.l2core.util.Proxy;
 import dev.xkmc.l2menustacker.init.L2MSLangData;
 import dev.xkmc.l2menustacker.init.L2MSTagGen;
 import dev.xkmc.l2menustacker.init.L2MenuStacker;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.inventory.Slot;
@@ -30,7 +30,7 @@ public class SlotClickEventHandler {
 				if (stack.getCount() > 1) return;
 				if (!stack.is(L2MSTagGen.QUICK_ACCESS)) return;
 			}
-			var player = Proxy.getClientPlayer();
+			var player = Minecraft.getInstance().player;
 			if (event.getButton() == GLFW.GLFW_MOUSE_BUTTON_RIGHT && player != null) {
 				boolean b1 = slot.container == player.getInventory();
 				boolean b2 = cont.getMenu().containerId > 0;
