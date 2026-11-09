@@ -5,6 +5,7 @@ import dev.xkmc.l2library.capability.player.PlayerCapabilityNetworkHandler;
 import dev.xkmc.l2library.capability.player.PlayerCapabilityTemplate;
 import dev.xkmc.l2screentracker.init.L2ScreenTracker;
 import dev.xkmc.l2screentracker.screen.packets.AddTrackedToClient;
+import dev.xkmc.l2screentracker.screen.packets.CacheMouseToClient;
 import dev.xkmc.l2screentracker.screen.packets.PopLayerToClient;
 import dev.xkmc.l2screentracker.screen.track.MenuTraceRegistry;
 import dev.xkmc.l2screentracker.screen.track.NoData;
@@ -129,6 +130,7 @@ public class ScreenTracker extends PlayerCapabilityTemplate<ScreenTracker> {
 		if (stack.isEmpty()) return false;
 		if (this.wid == wid) {
 			restoring = true;
+			L2ScreenTracker.PACKET_HANDLER.toClientPlayer(new CacheMouseToClient(), player);
 			LayerPopType type = Wrappers.get(() -> stack.pop().restoreServerMenu(player));
 			restoring = false;
 			if (type != null && type != LayerPopType.FAIL) {

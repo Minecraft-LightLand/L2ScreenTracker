@@ -33,7 +33,8 @@ public class L2ScreenTracker {
 			e -> e.create(RestoreMenuToServer.class, PLAY_TO_SERVER),
 			e -> e.create(AddTrackedToClient.class, PLAY_TO_CLIENT),
 			e -> e.create(SetScreenToClient.class, PLAY_TO_CLIENT),
-			e -> e.create(PopLayerToClient.class, PLAY_TO_CLIENT)
+			e -> e.create(PopLayerToClient.class, PLAY_TO_CLIENT),
+			e -> e.create(CacheMouseToClient.class, PLAY_TO_CLIENT)
 	);
 
 	public L2ScreenTracker() {
