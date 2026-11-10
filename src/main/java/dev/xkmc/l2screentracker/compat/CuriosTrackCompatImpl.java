@@ -19,11 +19,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.network.NetworkHooks;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.common.CuriosRegistry;
 import top.theillusivec4.curios.common.inventory.CurioSlot;
@@ -45,13 +44,11 @@ public class CuriosTrackCompatImpl {
 	}
 
 	ItemStack getItemFromSlotImpl(Player player, int slot) {
-		LazyOptional<IItemHandlerModifiable> curios = CuriosApi.getCuriosHelper().getEquippedCurios(player);
-		if (curios.isPresent() && curios.resolve().isPresent()) {
-			IItemHandlerModifiable e = curios.resolve().get();
-			return e.getStackInSlot(slot);
-		} else {
-			return ItemStack.EMPTY;
-		}
+		return CuriosApi.getCuriosInventory(player)
+				.lazyMap(ICuriosItemHandler::getEquippedCurios)
+				.resolve()
+				.map(e -> e.getStackInSlot(slot))
+				.orElse(ItemStack.EMPTY);
 	}
 
 	public RegistryEntry<CurioSource> IS_CURIOS;
@@ -65,12 +62,16 @@ public class CuriosTrackCompatImpl {
 	}
 
 	void onCommonSetup() {
-		MenuSourceRegistry.register(CuriosRegistry.CURIO_MENU.get(), (menu, slot, index, wid) ->
+		registerCurioMenu(CuriosRegistry.CURIO_MENU.get());
+		registerCurioMenu(CuriosRegistry.CURIO_MENU_NEW.get());
+	}
+
+	private <T extends CuriosContainer> void registerCurioMenu(MenuType<T> type) {
+		MenuSourceRegistry.register(type, (menu, slot, index, wid) ->
 				getPlayerSlotImpl(slot, index, wid, menu));
 
-		MenuTraceRegistry.register(CuriosRegistry.CURIO_MENU.get(), menu ->
+		MenuTraceRegistry.register(type, menu ->
 				Optional.of(TrackedEntry.of(TE_CURIO_INV.get(), NoData.DATA)));
-
 	}
 
 	void onCompatSetup(MenuType<?> type) {
@@ -79,48 +80,32 @@ public class CuriosTrackCompatImpl {
 
 	}
 
-	private Optional<Player> getPlayerFromCurioCont(AbstractContainerMenu menu) {
-		if (menu instanceof CuriosContainer cont) {
-			return Optional.of(cont.player);
+	private Optional<PlayerSlot<?>> getPlayerSlotImpl(int slot, int index, int wid, AbstractContainerMenu menu) {
+		if (menu.containerId != wid) return Optional.empty();
+		Slot s = menu.getSlot(index);
+		if (menu instanceof CuriosContainer cont && s instanceof CurioSlot curio) {
+			return getSlotData(cont.player, curio.getIdentifier(), curio.getSlotIndex());
 		}
-		if (ModList.get().isLoaded("l2tabs")) {
-			if (menu instanceof CuriosListMenu cont) {
-				return Optional.of(cont.inventory.player);
+		if (ModList.get().isLoaded("l2tabs") && menu instanceof CuriosListMenu cont
+				&& cont.curios.entity instanceof Player player) {
+			var data = TabCurioSlotAccess.of(s);
+			if (data != null) {
+				return getSlotData(player, data.identifier(), data.index());
 			}
 		}
 		return Optional.empty();
 	}
 
-	private Optional<PlayerSlot<?>> getPlayerSlotImpl(int slot, int index, int wid, AbstractContainerMenu menu) {
-		Slot s;
-		CurioSlot curioSlot;
-		int slotIndex;
-		int val;
-		if (menu.containerId != wid) return Optional.empty();
-		var pl = getPlayerFromCurioCont(menu);
-
-		if (pl.isPresent()) {
-			s = menu.getSlot(index);
-			if (s instanceof CurioSlot) {
-				curioSlot = (CurioSlot) s;
-				slotIndex = getSlotIndexInContainer(pl.get(), curioSlot.getIdentifier());
-				if (slotIndex < 0) {
-					return Optional.empty();
-				}
-
-				val = slotIndex + curioSlot.getSlotIndex();
-				return Optional.of(new PlayerSlot<>(IS_CURIOS.get(), new SimpleSlotData(val)));
-			}
-		}
-		return Optional.empty();
+	private Optional<PlayerSlot<?>> getSlotData(Player player, String id, int index) {
+		int slotIndex = getSlotIndexInContainer(player, id);
+		if (slotIndex < 0) return Optional.empty();
+		return Optional.of(new PlayerSlot<>(IS_CURIOS.get(), new SimpleSlotData(slotIndex + index)));
 	}
 
 	private static int getSlotIndexInContainer(Player player, String id) {
-		var curiosLazy = CuriosApi.getCuriosHelper().getCuriosHandler(player);
-		if (!curiosLazy.isPresent() || !curiosLazy.resolve().isPresent()) {
-			return -1;
-		}
-		Map<String, ICurioStacksHandler> curios = curiosLazy.resolve().get().getCurios();
+		Optional<ICuriosItemHandler> handler = CuriosApi.getCuriosInventory(player).resolve();
+		if (handler.isEmpty()) return -1;
+		Map<String, ICurioStacksHandler> curios = handler.get().getCurios();
 		int index = 0;
 
 		for (ICurioStacksHandler stacksHandler : curios.values()) {
